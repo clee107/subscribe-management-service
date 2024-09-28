@@ -1,0 +1,1 @@
+create schema subscription_service collate utf8mb4_general_ci;
