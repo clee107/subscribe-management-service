@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.subscribe.management.mapper.MemberSubscriptionHistoryMapper">
+    <select id="findAllByMemberId" resultType="com.subscribe.management.domain.dto.history.member.ChannelMemberSubscriptionLogItemDto">
+        select cmsl.member_id, cmsl.channel_id, mm.phone, cm.channel_name, cmsl.request_type, date(cmsl.created_at) as created_date, cmsl.created_at
+        from channel_member_subscription_log as cmsl
+        inner join member_main as mm
+            on cmsl.member_id = mm.member_id
+        inner join channel_main as cm
+            on cmsl.channel_id = cm.channel_id
+        where cmsl.member_id = #{memberId}
+        order by cmsl.created_at asc, channel_id asc
+    </select>
+</mapper>

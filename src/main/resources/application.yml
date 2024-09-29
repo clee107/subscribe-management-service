@@ -37,6 +37,8 @@ server:
     whitelabel:
       enabled: false
 mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
   mapper-locations: classpath:mapper/*.xml
 logging:
   file:

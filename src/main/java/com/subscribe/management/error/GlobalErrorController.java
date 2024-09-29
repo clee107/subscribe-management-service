@@ -7,6 +7,7 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,6 +50,10 @@ public class GlobalErrorController implements ErrorController {
         }
 
         if (throwable instanceof HttpRequestMethodNotSupportedException) {
+            return new ApiResponseException(HttpStatus.NOT_FOUND);
+        }
+
+        if (throwable instanceof IllegalArgumentException) {
             return new ApiResponseException(HttpStatus.BAD_REQUEST);
         }
 

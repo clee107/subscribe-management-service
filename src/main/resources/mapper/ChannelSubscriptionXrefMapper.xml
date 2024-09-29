@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.subscribe.management.mapper.ChannelSubscriptionXrefMapper">
+    <select id="findByMemberIdAndChannelId" resultType="com.subscribe.management.domain.dto.ChannelSubscriptionXrefDto">
+        select member_id, channel_id, subscription_type, created_at, updated_at
+        from channel_member_subscription_xref
+        where member_id = #{memberId}
+            and channel_id = #{channelId}
+    </select>
+
+    <insert id="save">
+        insert into channel_member_subscription_xref (
+            member_id, channel_id, subscription_type, created_at, updated_at
+        ) values (
+            #{memberId}, #{channelId}, #{subscriptionType}, now(), now()
+        )
+    </insert>
+
+    <update id="updateByMemberIdAndChannelId">
+        update channel_member_subscription_xref
+        set subscription_type = #{subscriptionType},
+            updated_at = now()
+        where member_id = #{memberId}
+            and channel_id = #{channelId}
+    </update>
+
+    <delete id="deleteByMemberIdAndChannelId">
+        delete from channel_member_subscription_xref
+        where member_id = #{memberId}
+            and channel_id = #{channelId}
+    </delete>
+</mapper>
