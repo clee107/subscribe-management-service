@@ -1,23 +1,23 @@
 spring:
-  config:
-    import: file:../.subscribe_env/env.properties
+  profiles:
+    active: local
   datasource:
     primary:
-      driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-      jdbcUrl: jdbc:log4jdbc:mysql://${DATABASE_HOST}:${DATABASE_PORT}/subscription_service?characterEncoding=UTF-8
+      driverClassName: com.mysql.cj.jdbc.Driver
+      jdbcUrl: jdbc:mysql://${DATABASE_HOST}:${DATABASE_PORT}/subscription_service?characterEncoding=UTF-8
       username: ${DATABASE_USER}
       password: ${DATABASE_PASSWORD}
       minimumIdle: 2
       maximumPoolSize: 5
     secondary:
-      driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-      jdbcUrl: jdbc:log4jdbc:mysql://${DATABASE_HOST}:${DATABASE_PORT}/subscription_service?characterEncoding=UTF-8
+      driverClassName: com.mysql.cj.jdbc.Driver
+      jdbcUrl: jdbc:mysql://${DATABASE_HOST}:${DATABASE_PORT}/subscription_service?characterEncoding=UTF-8
       username: ${DATABASE_USER}
       password: ${DATABASE_PASSWORD}
       minimumIdle: 2
       maximumPoolSize: 5
   jpa:
-    database-platform: org.hibernate.dialect.MySQL8Dialect
+    database-platform: org.hibernate.dialect.MySQLDialect
     open-in-view: false
     generate-ddl: false
     hibernate:
@@ -50,3 +50,21 @@ logging:
     rollingpolicy:
       max-file-size: 20MB
       max-history: 7
+
+---
+spring:
+  config.activate:
+    on-profile: local
+  config:
+    import: file:./env.properties
+  datasource:
+    primary:
+      driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+      jdbcUrl: jdbc:log4jdbc:mysql://${DATABASE_HOST}:${DATABASE_PORT}/subscription_service?characterEncoding=UTF-8
+      username: ${DATABASE_USER}
+      password: ${DATABASE_PASSWORD}
+    secondary:
+      driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+      jdbcUrl: jdbc:log4jdbc:mysql://${DATABASE_HOST}:${DATABASE_PORT}/subscription_service?characterEncoding=UTF-8
+      username: ${DATABASE_USER}
+      password: ${DATABASE_PASSWORD}

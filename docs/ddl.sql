@@ -1,3 +1,7 @@
+# schema
+create schema subscription_service collate utf8mb4_general_ci;
+
+
 # ddl
 create table member_main (
     member_id int not null auto_increment primary key comment '회원 순번',

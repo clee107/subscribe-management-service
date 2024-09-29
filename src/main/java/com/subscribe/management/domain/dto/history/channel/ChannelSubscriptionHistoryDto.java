@@ -16,8 +16,6 @@ public class ChannelSubscriptionHistoryDto {
     private Long logId;
 
     private Integer memberId;
-    private Integer channelId;
-    private String channelName;
     private String phone;
     private SubscriptionType requestType;
 

@@ -2,12 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.subscribe.management.mapper.ChannelSubscriptionHistoryMapper">
     <select id="findAllByChannelIdAndDateEquals" resultType="com.subscribe.management.domain.dto.history.channel.ChannelSubscriptionHistoryDto">
-        select cmsl.log_id, cmsl.member_id, cmsl.channel_id, cm.channel_name, mm.phone, cmsl.request_type, cmsl.created_at
+        select cmsl.log_id, cmsl.member_id, mm.phone, cmsl.request_type, cmsl.created_at
         from channel_member_subscription_log as cmsl
         inner join member_main as mm
             on cmsl.member_id = mm.member_id
-        inner join channel_main as cm
-            on cmsl.channel_id = cm.channel_id
         where cmsl.channel_id = #{channelId}
             and cmsl.created_at between concat(date(#{date}), ' 00:00:00') and concat(date(#{date}), ' 23:59:59')
         order by cmsl.created_at asc
